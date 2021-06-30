@@ -1,0 +1,57 @@
+FINAL PROJECT INFO
+
+OVERVIEW:
+Flow: 
+read data CSV file and a JSON file, 
+convert data into structured Python objects
+perform filtering operations on the data 
+limit the size of the result 
+set and write the results to a file in a structured format, such as CSV or JSON.
+
+
+AFTER:
+you'll be able to inspect the properties of the near-Earth objects 
+query the data set of close approaches to Earth using any combination of the following filters:
+
+> Occurs on a given date.
+> Occurs on or after a given start date.
+> Occurs on or before a given end date.
+> Approaches Earth at a distance of at least (or at most) X astrononical units.
+> Approaches Earth at a relative velocity of at least (or at most) Y kilometers per second.
+> Has a diameter that is at least as large as (or at least as small as) Z kilometers.
+> Is marked by NASA as potentially hazardous (or not)
+
+
+PREPARATION:
+* dataset #1 neos.csv contains information about semantic, physical, orbital, and model parameters for certain small bodies (asteroids and comets)
+* dataset #2 cad.json contains information about NEO close approaches - moments in time when the orbit of an astronomical body brings it close to Earth.
+
+Glossary: https://cneos.jpl.nasa.gov/glossary/
+(for unfamiliar words)
+
+
+SMALL-BODIES DATASET:
+
+From this dataset, you can answer questions such as "what is the diameter of the Halley's Comet?" or "is the near-Earth object named 'Eros' potentially hazardous?".
+
+NASA's Jet Propulsion Laboratory Database: https://ssd.jpl.nasa.gov/sbdb_query.cgi
+
+
+In this CSV file, the first row is a header, containing names for each of the columns. Each subsequent row represents a single NEO.
+
+
+CLOSE APPROACH DATASET:
+
+From this dataset, you can answer questions such as "On which date(s) does Halley's Comet pass near to Earth?" or "How fast does Eros pass by Earth, on average?"
+
+*"Signature" field shows where this data came from - in this case, from the API provided by NASA/JPL. 
+*"Count" field tells us how many entries to expect in the "data" section.
+*"Fields" key maps to a list of strings describing how we should interpret the entries in the "data" section.
+*"Data" section itself maps to a list of lists - each element is a list of data for a single close approach, corresponding (by order) with the "fields" key.
+
+Fields Documentation: https://ssd-api.jpl.nasa.gov/doc/cad.html
+
+
+
+
+
