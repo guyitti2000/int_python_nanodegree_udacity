@@ -17,63 +17,6 @@ quirks of the data set, such as missing names and unknown diameters.
 
 You'll edit this file in Task 1.
 """
-"""Represent models for near-Earth objects and their close approaches.
-
-The `NearEarthObject` class represents a near-Earth object. Each has a unique
-primary designation, an optional unique name, an optional diameter, and a flag
-for whether the object is potentially hazardous.
-
-The `CloseApproach` class represents a close approach to Earth by an NEO. Each
-has an approach datetime, a nominal approach distance, and a relative approach
-velocity.
-
-A `NearEarthObject` maintains a collection of its close approaches, and a
-`CloseApproach` maintains a reference to its NEO.
-
-The functions that construct these objects use information extracted from the
-data files from NASA, so these objects should be able to handle all of the
-quirks of the data set, such as missing names and unknown diameters.
-
-You'll edit this file in Task 1.
-"""
-"""Represent models for near-Earth objects and their close approaches.
-
-The `NearEarthObject` class represents a near-Earth object. Each has a unique
-primary designation, an optional unique name, an optional diameter, and a flag
-for whether the object is potentially hazardous.
-
-The `CloseApproach` class represents a close approach to Earth by an NEO. Each
-has an approach datetime, a nominal approach distance, and a relative approach
-velocity.
-
-A `NearEarthObject` maintains a collection of its close approaches, and a
-`CloseApproach` maintains a reference to its NEO.
-
-The functions that construct these objects use information extracted from the
-data files from NASA, so these objects should be able to handle all of the
-quirks of the data set, such as missing names and unknown diameters.
-
-You'll edit this file in Task 1.
-"""
-"""Represent models for near-Earth objects and their close approaches.
-
-The `NearEarthObject` class represents a near-Earth object. Each has a unique
-primary designation, an optional unique name, an optional diameter, and a flag
-for whether the object is potentially hazardous.
-
-The `CloseApproach` class represents a close approach to Earth by an NEO. Each
-has an approach datetime, a nominal approach distance, and a relative approach
-velocity.
-
-A `NearEarthObject` maintains a collection of its close approaches, and a
-`CloseApproach` maintains a reference to its NEO.
-
-The functions that construct these objects use information extracted from the
-data files from NASA, so these objects should be able to handle all of the
-quirks of the data set, such as missing names and unknown diameters.
-
-You'll edit this file in Task 1.
-"""
 from helpers import cd_to_datetime, datetime_to_str
 
 
@@ -105,7 +48,6 @@ class NearEarthObject:
         self.name = name
         self.diameter = diameter
         self.hazardous = hazardous
-        #try working with inline stuff print("potentially hazardous") if hazardous else print("not hazardous")
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -114,23 +56,19 @@ class NearEarthObject:
     def fullname(self):
         """Return a representation of the full name of this NEO."""
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        return f'{self.designation} ({self.name})'
-    # DONE
+        return ''
 
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"NEO {self.fullname}, has a diameter of {self.diameter} and is {self.hazardous}."
-    # bug here hazardous 
-    # if there is no value for it, how should the data be return? 
+        return f"NEO {designation} ({name}), has a diameter of {diameter} and is {hazardous}."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, "
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")
-
 
 
 class CloseApproach:
@@ -148,26 +86,25 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation='', time=None, distance=0.0, velocity=0.0, neo=None):
+    def __init__(self, **info):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-        # TODO: Assign information from the arguments passed to the constructor 
+        # TODO: Assign information from the arguments passed to the constructor
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = designation
-        self.time = cd_to_datetime(time) # TODO: Use the cd_to_datetime function for this attribute.
-        self.distance = distance
-        self.velocity = velocity
+        self._designation = ''
+        self.time = None  # TOD: UseO the cd_to_datetime function for this attribute.
+        self.distance = 0.0
+        self.velocity = 0.0
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = None
 
     @property
     def time_str(self):
-        
         """Return a formatted representation of this `CloseApproach`'s approach time.
 
         The value in `self.time` should be a Python `datetime` object. While a
@@ -182,26 +119,16 @@ class CloseApproach:
         # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        return datetime_to_str(self.time)
+        return ''
 
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"At {self.time_str}, {neo.fullname} approaches Earth at a distance of {self.distance} au and a velocity of {self.velocity} km/s."
-        #bug need to figure out how {self.fullname} and neo fits in here
+        return f"A CloseApproach ..."
+
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
-    
-neo = NearEarthObject(123, 'Barsik', 21.21, True)
-print(neo)
-print(neo.fullname)
-ca1 = CloseApproach(123, "1900-Dec-27 10:12" , 10, 0.1, neo)
-ca2 = CloseApproach(123, "1900-Dec-27 12:12", 11, 1.1, neo)
-print(ca1, f"\n{ca2}")
-neo.approaches.append(ca1)
-neo.approaches.append(ca2)
-neo.approaches
