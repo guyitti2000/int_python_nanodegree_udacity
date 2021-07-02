@@ -102,9 +102,9 @@ class NearEarthObject:
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
         self.designation = designation
-        self.name = name
-        self.diameter = diameter
-        self.hazardous = hazardous
+        self.name = name if name else None
+        self.diameter = float(diameter) if diameter else float('nan')
+        self.hazardous = "potentially hazardous" if hazardous else "not hazardous"
         #try working with inline stuff print("potentially hazardous") if hazardous else print("not hazardous")
 
         # Create an empty initial collection of linked approaches.
@@ -148,7 +148,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation='', time=None, distance=0.0, velocity=0.0, neo=None):
+    def __init__(self, designation, time=None, distance=float('nan'), velocity=float('nan'), neo=None):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
@@ -157,10 +157,10 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = designation
-        self.time = cd_to_datetime(time) # TODO: Use the cd_to_datetime function for this attribute.
-        self.distance = distance
-        self.velocity = velocity
+        self._designation = neo.designation
+        self.time = cd_to_datetime(time) if time else None # TODO: Use the cd_to_datetime function for this attribute.
+        self.distance = float(distance) if distance else float('nan')
+        self.velocity = float(velocity) if velocity else float('nan')
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = None
@@ -196,7 +196,7 @@ class CloseApproach:
         return (f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
     
-neo = NearEarthObject(123, 'Barsik', 21.21, True)
+neo = NearEarthObject(123)
 print(neo)
 print(neo.fullname)
 ca1 = CloseApproach(123, "1900-Dec-27 10:12" , 10, 0.1, neo)
