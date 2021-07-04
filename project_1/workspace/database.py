@@ -40,19 +40,7 @@ class NEODatabase:
         """
         self._neos = neos
         self._approaches = approaches
-        self._neos_by_designation = {}
-        self._neos_by_name = {}
         
-        for neo_item in self._neos:
-            self._neos_by_designation[neo_item.designation] = neo
-            if neo.name:
-                self._neos_by_name[neo.name] = neo
-            
-            for approach_item in self._approaches:
-                neo = self._neos_by_designation[approach_item.designation]
-                approach.neo = neo
-                neo.approaches.append(approach_item)
-            # try to understand this code better
         
 
         # TODO: What additional auxiliary data structures will be useful?
