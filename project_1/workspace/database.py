@@ -1,5 +1,6 @@
 """A database encapsulating collections of near-Earth objects and their close approaches.
 
+
 A `NEODatabase` holds an interconnected data set of NEOs and close approaches.
 It provides methods to fetch an NEO by primary designation or by name, as well
 as a method to query the set of close approaches that match a collection of
@@ -40,21 +41,28 @@ class NEODatabase:
         """
         self._neos = neos
         self._approaches = approaches
-        
-        
+
+
 
         # TODO: What additional auxiliary data structures will be useful?
-        for key, value in self._neos(items):
-            
-                
-                
+        self.neos_by_designation = {}
+        self.neos_by_name = {}
         
+        for neo_item in self._neos:
+            self.neos_by_designation[neo_item.designation] = neo
+            if neo.name:
+                self.neo_by_name[neo.name] = neo
         
+      
+        
+
+
+
 
         # TODO: Link together the NEOs and their close approaches.
         for desig_neo, neo in self._neos.items():
-            for desig_cad, cad in self._approaches.items():
-                if desig_cad == desig_neo:
+            for desig_ca, ca in self._approaches.items():
+                if desig_ca == desig_neo:
                     self.neo[desig_neo].approaches.append(approach)
                     self.approaches[desig_neo].neo = neo
                     
@@ -74,7 +82,10 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
-        return None
+        if self.designation:
+            return self.designation
+        else:
+            return None
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
@@ -91,7 +102,10 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
         # TODO: Fetch an NEO by its name.
-        return None
+        if self.name:
+            return self.name
+        else:
+            return None
 
     def query(self, filters=()):
         """Query close approaches to generate those that match a collection of filters.
