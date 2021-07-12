@@ -49,9 +49,9 @@ class NEODatabase:
         self.neos_by_name = {}
         
         for neo_item in self._neos:
-            self.neos_by_designation[neo_item.designation] = neo
-            if neo.name:
-                self.neos_by_name[neo.name] = neo
+            self.neos_by_designation[neo_item.designation] = neo_item
+            if neo_item.name:
+                self.neos_by_name[neo_item.name] = neo_item
         
       
         
@@ -63,7 +63,8 @@ class NEODatabase:
         
         for ca_item in self._approaches:
             neo = self.get_neo_by_designation(ca_item._designation)
-            neo.approaches.append(neo)
+            ca_item.neo = neo
+            neo.approaches.append(ca_item)
             
         
 
@@ -81,11 +82,7 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
-        for neo_item in self._neos.items():
-            if neo_item.designation == designation:
-                return neo_item
-            else:
-                return None
+        return self.neos_by_designation.get(designation)
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
@@ -103,11 +100,8 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
         # TODO: Fetch an NEO by its name.
-        for neo_item in self._neos.items():
-            if neo_item.name == name:
-                return neo_item
-            else:
-                return None
+        return self.neos_by_name.get(name)
+      
 
     def query(self, filters=()):
         """Query close approaches to generate those that match a collection of filters.
