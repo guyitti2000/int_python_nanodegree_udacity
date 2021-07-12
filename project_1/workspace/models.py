@@ -196,12 +196,12 @@ class CloseApproach:
         return (f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
     
-neo = NearEarthObject(123)
-print(neo)
-print(neo.fullname)
-ca1 = CloseApproach(123, "1900-Dec-27 10:12" , 10, 0.1, neo)
-ca2 = CloseApproach(123, "1900-Dec-27 12:12", 11, 1.1, neo)
-print(ca1, f"\n{ca2}")
-neo.approaches.append(ca1)
-neo.approaches.append(ca2)
-neo.approaches
+# neo = NearEarthObject(123)
+# print(neo)
+# print(neo.fullname)
+# ca1 = CloseApproach(123, "1900-Dec-27 10:12" , 10, 0.1, neo)
+# ca2 = CloseApproach(123, "1900-Dec-27 12:12", 11, 1.1, neo)
+# print(ca1, f"\n{ca2}")
+# neo.approaches.append(ca1)
+# neo.approaches.append(ca2)
+# neo.approaches

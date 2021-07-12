@@ -51,7 +51,7 @@ class NEODatabase:
         for neo_item in self._neos:
             self.neos_by_designation[neo_item.designation] = neo
             if neo.name:
-                self.neo_by_name[neo.name] = neo
+                self.neos_by_name[neo.name] = neo
         
       
         
@@ -60,13 +60,12 @@ class NEODatabase:
 
 
         # TODO: Link together the NEOs and their close approaches.
-        for desig_neo, neo in self._neos.items():
-            for desig_ca, ca in self._approaches.items():
-                if desig_ca == desig_neo:
-                    self.neo[desig_neo].approaches.append(approach)
-                    self.approaches[desig_neo].neo = neo
-                    
-    print(neo)
+        
+        for ca_item in self._approaches:
+            neo = self.get_neo_by_designation(ca_item._designation)
+            neo.approaches.append(neo)
+            
+        
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
@@ -82,15 +81,17 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
-        if self.designation:
-            return self.designation
-        else:
-            return None
+        for neo_item in self._neos.items():
+            if neo_item.designation == designation:
+                return neo_item
+            else:
+                return None
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
 
-        If no match is found, return `None` instead.
+        If no m
+        atch is found, return `None` instead.
 
         Not every NEO in the data set has a name. No NEOs are associated with
         the empty string nor with the `None` singleton.
@@ -102,10 +103,11 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
         # TODO: Fetch an NEO by its name.
-        if self.name:
-            return self.name
-        else:
-            return None
+        for neo_item in self._neos.items():
+            if neo_item.name == name:
+                return neo_item
+            else:
+                return None
 
     def query(self, filters=()):
         """Query close approaches to generate those that match a collection of filters.
