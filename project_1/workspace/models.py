@@ -104,7 +104,7 @@ class NearEarthObject:
         self.designation = designation
         self.name = name if name else None
         self.diameter = float(diameter) if diameter else float('nan')
-        self.hazardous = "potentially hazardous" if hazardous else "not hazardous"
+        self.hazardous = "potentially hazardous" if hazardous == " else "not hazardous"
         #try working with inline stuff print("potentially hazardous") if hazardous else print("not hazardous")
 
         # Create an empty initial collection of linked approaches.
@@ -157,7 +157,7 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = neo.designation
+        self._designation = designation
         self.time = cd_to_datetime(time) if time else None # TODO: Use the cd_to_datetime function for this attribute.
         self.distance = float(distance) if distance else float('nan')
         self.velocity = float(velocity) if velocity else float('nan')
