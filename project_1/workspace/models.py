@@ -104,7 +104,7 @@ class NearEarthObject:
         self.designation = designation
         self.name = name if name else None
         self.diameter = float(diameter) if diameter else float('nan')
-        self.hazardous = "potentially hazardous" if hazardous == " else "not hazardous"
+        self.hazardous = True if hazardous.upper() == 'Y' else False
         #try working with inline stuff print("potentially hazardous") if hazardous else print("not hazardous")
 
         # Create an empty initial collection of linked approaches.
@@ -122,9 +122,7 @@ class NearEarthObject:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"NEO {self.fullname}, has a diameter of {self.diameter} and is {self.hazardous}."
-    # bug here hazardous 
-    # if there is no value for it, how should the data be return? 
+        return f"NEO {self.fullname}, has a diameter of {self.diameter}km and is{'' if self.hazardous else ' not'} potentially hazardous."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
@@ -190,18 +188,17 @@ class CloseApproach:
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
         return f"At {self.time_str}, {neo.fullname} approaches Earth at a distance of {self.distance} au and a velocity of {self.velocity} km/s."
-        #bug need to figure out how {self.fullname} and neo fits in here
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
     
-# neo = NearEarthObject(123)
-# print(neo)
-# print(neo.fullname)
-# ca1 = CloseApproach(123, "1900-Dec-27 10:12" , 10, 0.1, neo)
-# ca2 = CloseApproach(123, "1900-Dec-27 12:12", 11, 1.1, neo)
-# print(ca1, f"\n{ca2}")
-# neo.approaches.append(ca1)
-# neo.approaches.append(ca2)
-# neo.approaches
+neo = NearEarthObject(123, "Jerry", 20.4, 'Y')
+print(neo)
+print(neo.fullname)
+ca1 = CloseApproach(123, "1900-Dec-27 10:12" , 10, 0.1, neo)
+ca2 = CloseApproach(123, "1900-Dec-27 12:12", 11, 1.1, neo)
+print(ca1, f"\n{ca2}")
+neo.approaches.append(ca1)
+neo.approaches.append(ca2)
+neo.approaches
