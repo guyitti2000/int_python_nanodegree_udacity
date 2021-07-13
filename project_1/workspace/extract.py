@@ -52,7 +52,8 @@ def load_approaches(cad_json_path='data/cad.json'):
     list_cad = []
     with open(cad_json_path) as infile:
         json_reader = json.load(infile)
-        for row in json_reader:
+        json_data = json_reader['data']
+        for row in json_data:
             designation=row[0]
             time=row[3]
             distance=row[4]
