@@ -1,5 +1,6 @@
 """Represent models for near-Earth objects and their close approaches.
 
+
 The `NearEarthObject` class represents a near-Earth object. Each has a unique
 primary designation, an optional unique name, an optional diameter, and a flag
 for whether the object is potentially hazardous.
@@ -186,7 +187,7 @@ class CloseApproach:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"At {self.time_str}, {neo.fullname} approaches Earth at a distance of {self.distance} au and a velocity of {self.velocity} km/s."
+        return f"At {self.time_str}, {self.neo.fullname} approaches Earth at a distance of {self.distance} au and a velocity of {self.velocity} km/s."
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
