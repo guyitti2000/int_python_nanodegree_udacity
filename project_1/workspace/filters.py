@@ -1,5 +1,6 @@
 """Provide filters for querying close approaches and limit the generated results.
 
+
 The `create_filters` function produces a collection of objects that is used by
 the `query` method to generate a stream of `CloseApproach` objects that match
 all of the desired criteria. The arguments to `create_filters` are provided by
@@ -71,13 +72,14 @@ class AttributeFilter:
 
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
-    
-    
+
+
 class DateFilter(AttributeFilter):
     """Date specific class for filters on comparable attributes."""
     @classmethod
     def get(cls, approach):
         return approach.time.date()
+
 
 class DistanceFilter(AttributeFilter):
     """Distance specific class for filters on comparable attributes."""
@@ -85,24 +87,26 @@ class DistanceFilter(AttributeFilter):
     def get(cls, approach):
         return approach.distance
 
+
 class VelocityFilter(AttributeFilter):
     """Velocity specific class for filters on comparable attributes."""
     @classmethod
     def get(cls, approach):
         return approach.velocity
 
+
 class DiameterFilter(AttributeFilter):
     """Diameter specific class for filters on comparable attributes."""
     @classmethod
     def get(cls, approach):
         return approach.neo.diameter
-    
+
+
 class HazardousFilter(AttributeFilter):
     """Hazardous specific class for filters on comparable attributes."""
     @classmethod
     def get(cls, approach):
         return approach.neo.hazardous
-    
 
 
 def create_filters(date=None, start_date=None, end_date=None,
@@ -139,51 +143,48 @@ def create_filters(date=None, start_date=None, end_date=None,
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-    # TODO: Decide how you will represent your filters.
-    #The date filter operates on Python date and datetime objects; the distance, velocity, and diameter filters operate on floats,
-    #and the hazardous filter operates on booleans.
     filters = []
-    
+
     if date is not None:
         filter_item = DateFilter(operator.eq, date)
         filters.append(filter_item)
-    
+
     if start_date is not None:
         filter_item = DateFilter(operator.ge, start_date)
         filters.append(filter_item)
-        
+
     if end_date is not None:
         filter_item = DateFilter(operator.le, end_date)
         filters.append(filter_item)
-        
+
     if distance_min is not None:
         filter_item = DistanceFilter(operator.ge, float(distance_min))
         filters.append(filter_item)
-        
+
     if distance_max is not None:
         filter_item = DistanceFilter(operator.le, float(distance_max))
         filters.append(filter_item)
-    
+
     if velocity_min is not None:
         filter_item = VelocityFilter(operator.ge, float(velocity_min))
         filters.append(filter_item)
-        
+
     if velocity_max is not None:
         filter_item = VelocityFilter(operator.le, float(velocity_max))
         filters.append(filter_item)
-        
+
     if diameter_min is not None:
         filter_item = DiameterFilter(operator.ge, float(diameter_min))
         filters.append(filter_item)
-        
+
     if diameter_max is not None:
         filter_item = DiameterFilter(operator.le, float(diameter_max))
         filters.append(filter_item)
-        
+
     if hazardous is not None:
         filter_item = HazardousFilter(operator.eq, bool(hazardous))
         filters.append(filter_item)
-                
+
     return filters
 
 
@@ -196,8 +197,7 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
     if n is None or n == 0:
         return iterator
-    else: 
+    else:
         return itertools.islice(iterator, n)

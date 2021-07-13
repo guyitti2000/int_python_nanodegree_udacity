@@ -1,5 +1,6 @@
 """Write a stream of close approaches to CSV or to JSON.
 
+
 This module exports two functions: `write_to_csv` and `write_to_json`, each of
 which accept an `results` stream of close approaches and a path to which to
 write the data.
@@ -25,15 +26,14 @@ def write_to_csv(results, filename):
     :param filename: A Path-like object pointing to where the data should be saved.
     """
     fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s', 'designation', 'name', 'diameter_km', 'potentially_hazardous')
-    # TODO: Write the results to a CSV file, following the specification in the instructions.÷
     with open('close_approach.csv', 'w') as outfile:
         writer = csv.DictWriter(outfile, fieldnames)
         writer.writeheader()
         for approach in results:
             row = {'datetime_utc': approach.time_str, 'distance_au': approach.distance, 'velocity_km_s': approach.velocity,'designation': approach.neo.designation, 'name': approach.neo.name, 'diameter_km': approach.neo.diameter, 'potentially_hazardous': approach.neo.hazardous}
             for key in row.keys():
-                if row[key]==None:
-                    row[key]=''
+                if row[key] is None:
+                    row[key] = ''
             writer.writerow(row)
 
 
@@ -48,10 +48,9 @@ def write_to_json(results, filename):
     :param results: An iterable of `CloseApproach` objects.
     :param filename: A Path-like object pointing to where the data should be saved.
     """
-    # TODO: Write the results to a JSON file, following the specification in the instructions.
     dict_list = []
     for approach in results:
         ca_dict = {'datetime_utc': approach.time_str, 'distance_au': approach.distance, 'velocity_km_s': approach.velocity, 'neo': {'designation': approach.neo.designation, 'name': approach.neo.name, 'diameter_km': approach.neo.diameter, 'potentially_hazardous': approach.neo.hazardous}}
         dict_list.append(ca_dict)
     with open('close_approach.json', 'w') as outfile:
-        json.dump(dict_list, outfile, indent =2)
+        json.dump(dict_list, outfile, indent=2)
