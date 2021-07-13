@@ -25,12 +25,15 @@ def write_to_csv(results, filename):
     :param filename: A Path-like object pointing to where the data should be saved.
     """
     fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s', 'designation', 'name', 'diameter_km', 'potentially_hazardous')
-    # TODO: Write the results to a CSV file, following the specification in the instructions.
+    # TODO: Write the results to a CSV file, following the specification in the instructions.÷
     with open('close_approach.csv', 'w') as outfile:
         writer = csv.DictWriter(outfile, fieldnames)
         writer.writeheader()
         for approach in results:
-            row = dict([('datetime_utc', ''), ('distance_au', ''), ('velocity_km_s', ''), ('designation', ''), ('name', ''),  ('diameter_km', ''),  ('potentially_hazardous', '')])
+            row = {'datetime_utc': approach.time_str, 'distance_au': approach.distance, 'velocity_km_s': approach.velocity,'designation': approach.neo.designation, 'name': approach.neo.name, 'diameter_km': approach.neo.diameter, 'potentially_hazardous': approach.neo.hazardous}
+            for key in row.keys():
+                if row[key]==None:
+                    row[key]=''
             writer.writerow(row)
 
 
