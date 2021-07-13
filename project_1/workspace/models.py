@@ -105,8 +105,7 @@ class NearEarthObject:
         self.name = name if name else None
         self.diameter = float(diameter) if diameter else float('nan')
         self.hazardous = True if hazardous.upper() == 'Y' else False
-        #try working with inline stuff print("potentially hazardous") if hazardous else print("not hazardous")
-
+        
         # Create an empty initial collection of linked approaches.
         self.approaches = []
 
